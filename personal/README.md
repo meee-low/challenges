@@ -1,5 +1,9 @@
-Small personal projects
+# Small personal projects
 
 ## Highlights  
 
-- (TBD)
+### [Monte Carlo Integration](monte_carlo_integration)
+
+![](monte_carlo_integration/data/sin(x%5E2).png)
+
+### [Interactive Mandelbrot Set](mandelbrot)
