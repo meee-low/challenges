@@ -1,12 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 import csv
+from tqdm import tqdm
+import os
 
-
-REPETITIONS = 1_000_000
-MAX_DIMENSIONS = 1000
-GRANULARITY = 50 # Controls how many data points it tries to get. The actual number of data points will be slightly lower in almost all cases.
+REPETITIONS = 10_000_000
+MAX_DIMENSIONS = 10000
+GRANULARITY = 100 # Controls how many data points it tries to get. The actual number of data points will be slightly lower in almost all cases.
 SEED = 30004
 
 data_folder_path = os.path.join(os.path.realpath(__file__), os.pardir, "data")
@@ -18,31 +18,30 @@ def simulate(dimension, repetitions=REPETITIONS):
     B = rng.random((dimension, repetitions))
     return np.linalg.norm(A - B, axis=0).mean()
 
-def simulate_many(max_dim, granularity=GRANULARITY):
-    rr = np.unique(np.geomspace(1, 1000, num=GRANULARITY).astype('int64'))
+def simulate_many(max_dim=MAX_DIMENSIONS, granularity=GRANULARITY):
+    rr = np.unique(np.geomspace(1, max_dim, num=granularity).astype('int64'))
     results = []
-    for dim in rr:
+    for dim in tqdm(rr):
         reps = REPETITIONS//dim
         results.append(simulate(dim, repetitions=reps))
     results = np.array(results)
     return rr, results
 
-def plot_results(xx, yy):
+def plot_results(xx, yy, folder_path, file_name, xlabel="", ylabel="", save_figure=True):
     plt.plot(xx, yy, '-o')
     ax = plt.gca()
-    ax.set_xlabel("Dimensions")
-    ax.set_ylabel("Average distance")
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
     
     file_name = f"seed_{SEED}_dim_{MAX_DIMENSIONS}_reps_{REPETITIONS}_gran_{GRANULARITY}.png"
-    file_path = os.path.join(data_folder_path, file_name)
+    file_path = os.path.join(folder_path, file_name)
     plt.savefig(file_path)
     
     plt.show(block=True)
     
     
-def save_results_to_csv(xx, yy):
-    file_name = f"seed_{SEED}_dim_{MAX_DIMENSIONS}_reps_{REPETITIONS}_gran_{GRANULARITY}.csv"
-    file_path = os.path.join(data_folder_path, file_name)
+def save_results_to_csv(xx, yy, folder_path, file_name):
+    file_path = os.path.join(folder_path, file_name)
     
     with open(file_path, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=";")
@@ -51,8 +50,10 @@ def save_results_to_csv(xx, yy):
 
 def main():
     xx, yy = simulate_many(MAX_DIMENSIONS)
-    plot_results(xx, yy)
-    save_results_to_csv(xx, yy)    
+    figurefilename = f"seed_{SEED}_dim_{MAX_DIMENSIONS}_reps_{REPETITIONS}_gran_{GRANULARITY}.csv"
+    plot_results(xx, yy, data_folder_path, figurefilename, "Dimensions", "Average distance")
+    csvfilename = f"seed_{SEED}_dim_{MAX_DIMENSIONS}_reps_{REPETITIONS}_gran_{GRANULARITY}.csv"
+    save_results_to_csv(xx, yy, data_folder_path, csvfilename)
     
 if __name__ == "__main__":
     main()
