@@ -6,3 +6,6 @@ This aims to let users zoom in indefinitely and get higher and higher resolution
 
 
 ![mandelbrot plot](data/fig.png)
+
+## Interesting points
+![special point](data/fig_2.png)
