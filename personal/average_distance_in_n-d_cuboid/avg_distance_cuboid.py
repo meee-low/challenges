@@ -9,7 +9,7 @@ MAX_DIMENSIONS = 10000
 GRANULARITY = 100 # Controls how many data points it tries to get. The actual number of data points will be slightly lower in almost all cases.
 SEED = 30004
 
-data_folder_path = os.path.join(os.path.realpath(__file__), os.pardir, "data")
+output_folder_path = os.path.join(os.path.realpath(__file__), os.pardir, "output")
 
 rng = np.random.default_rng(SEED)
 
@@ -51,9 +51,9 @@ def save_results_to_csv(xx, yy, folder_path, file_name):
 def main():
     xx, yy = simulate_many(MAX_DIMENSIONS)
     figurefilename = f"seed_{SEED}_dim_{MAX_DIMENSIONS}_reps_{REPETITIONS}_gran_{GRANULARITY}.csv"
-    plot_results(xx, yy, data_folder_path, figurefilename, "Dimensions", "Average distance")
+    plot_results(xx, yy, output_folder_path, figurefilename, "Dimensions", "Average distance")
     csvfilename = f"seed_{SEED}_dim_{MAX_DIMENSIONS}_reps_{REPETITIONS}_gran_{GRANULARITY}.csv"
-    save_results_to_csv(xx, yy, data_folder_path, csvfilename)
+    save_results_to_csv(xx, yy, output_folder_path, csvfilename)
     
 if __name__ == "__main__":
     main()

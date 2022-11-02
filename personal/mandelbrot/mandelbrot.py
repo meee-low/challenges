@@ -75,11 +75,17 @@ def plot_mandelbrot(left, right, bottom, top, pixel_density=None, width=None, it
     if save_path is not None:
         plt.savefig(save_path)
     
-    plt.show(block=True)    
+    plt.show(block=True)
+    
+def zoom_to_point(point_x, point_y, current_width, current_height, zoom_multiplier=2):
+    new_width = current_width / zoom_multiplier
+    new_height = current_height / zoom_multiplier
+    left, right, bottom, top = get_boundaries((point_x, point_y), new_width, new_height)
+    plot_mandelbrot(left, right, bottom, top, )
     
 def main():
     import os
-    data_folder_path = os.path.join(os.path.realpath(__file__), os.pardir, "data")
+    output_folder_path = os.path.join(os.path.realpath(__file__), os.pardir, "output")
     # plt.imshow(is_stable(c, 50), cmap="binary")
     # plot_mandelbrot(-2, 0.5, -1.5, 1.5, pixel_density=2**9, iterations=50)
     
@@ -92,7 +98,7 @@ def main():
     
     # plot_mandelbrot(x0, x1, y0, y1, width=2000, iterations=5000)
     
-    save_to = os.path.join(data_folder_path, "mand 003.png")
+    save_to = os.path.join(output_folder_path, "mand 003.png")
     
     plot_mandelbrot(-2, 0.5, -1.5, 1.5, width=600, iterations=256, save_path=save_to)
        

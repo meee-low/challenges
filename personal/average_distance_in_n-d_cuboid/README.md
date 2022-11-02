@@ -9,4 +9,4 @@ B = random between 0 and 1
 X = distance(A, B) <- result  
 
 # Graph for many dimensions
-![graph](data/seed_30004_dim_1000_reps_1000000_gran_50.png)
+![graph](output/seed_30004_dim_1000_reps_1000000_gran_50.png)

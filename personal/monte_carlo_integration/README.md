@@ -10,5 +10,5 @@ For function integrations, this uses linear spacing across the x axis. For figur
 ## Examples:
 ### $\int_{0}^{4\pi} \sin(x^2) dx:$
 
-![Graph of sin(x^2)](data/sin(x%5E2).png) 
+![Graph of sin(x^2)](output/sin(x%5E2).png) 
 

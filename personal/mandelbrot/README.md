@@ -5,7 +5,7 @@ Most Mandelbrot set python projects online don't let users do the most fun thing
 This aims to let users zoom in indefinitely and get higher and higher resolutions.
 
 
-![mandelbrot plot](data/fig.png)
+![mandelbrot plot](output/fig.png)
 
 ## Interesting points
-![special point](data/fig_2.png)
+![special point](output/fig_2.png)
